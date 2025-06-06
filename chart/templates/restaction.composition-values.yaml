@@ -1,14 +1,14 @@
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: composition-values
-  namespace: krateo-system
+  name: {{ .Release.Name }}-composition-values
+  namespace: {{ .Release.Namespace }}
 spec:
   api:
   - name: getValues
-    path: "/apis/core.krateo.io/v1alpha1/namespaces/fireworksapp-system/compositiondefinitions/fireworksapp"
+    path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
     verb: GET
   filter: >
     {
-      values: (.getValues // [])
+      values: (.getValues | del(.metadata.managedFields) // [])
     }
