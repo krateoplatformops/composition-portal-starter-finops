@@ -1,0 +1,16 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-overview-panel
+  namespace: krateo-system
+spec:
+  widgetData:
+    items:
+      - resourceRefId: composition-overview-panel-paragraph
+  resourcesRefs:
+    - id: composition-overview-panel-paragraph
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-overview-panel-paragraph
+      namespace: {{ .Release.Namespace }}
+      resource: paragraphs
+      verb: GET

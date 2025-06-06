@@ -1,0 +1,49 @@
+kind: TabList
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-tablist
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    items:
+      - label: Overview
+        resourceRefId: composition-overview-panel
+      - label: Composition Status
+        resourceRefId: composition-status-flowchart
+      - label: Application Status
+        resourceRefId: composition-application-flowchart
+      - label: Events
+        resourceRefId: composition-events-panel
+      - label: Values
+        resourceRefId: composition-values-panel
+  resourcesRefs:
+    - id: composition-overview-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-overview-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    - id: composition-status-flowchart
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-status-flowchart
+      namespace: {{ .Release.Namespace }}
+      resource: flowcharts
+      verb: GET
+    - id: composition-application-flowchart
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-application-flowchart
+      namespace: {{ .Release.Namespace }}
+      resource: flowcharts
+      verb: GET
+    - id: composition-events-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-events-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    - id: composition-values-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-values-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET

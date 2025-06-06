@@ -1,0 +1,16 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-events-panel
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    items:
+      - resourceRefId: composition-events-panel-eventlist
+  resourcesRefs:
+    - id: composition-events-panel-eventlist
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-events-panel-eventlist
+      namespace: {{ .Release.Namespace }}
+      resource: eventlists
+      verb: GET

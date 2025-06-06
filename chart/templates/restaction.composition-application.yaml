@@ -1,0 +1,17 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-composition-application
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: getNodes
+    path: "api/v1/applications/{{ .Release.Name }}/resource-tree?namespace={{ .Release.Namespace }}"
+    verb: GET
+    endpointRef:
+      name: argocd-endpoint
+      namespace: {{ .Values.global.krateoNamespace }}
+    headers:
+    - 'Accept: application/json'
+    continueOnError: true
+    errorKey: getNodesError

@@ -1,0 +1,45 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-panel
+  namespace: {{ .Release.Namespace }}
+  labels:
+    krateo.io/composition-id: test
+spec:
+  widgetData:
+    clickActionId: composition-click-action
+    footer:
+      items:
+        - resourceRefId: composition-panel-button
+      tag: {{ .Release.Namespace }},{{ .Values.global.compositionGroup }},{{ .Values.global.compositionInstalledVersion }},{{ .Values.global.compositionKind }},{{ .Values.global.compositionResource }}
+    icon:
+      name: fa-solid fa-cubes
+      color: blue
+    items:
+      - resourceRefId: composition-panel-paragraph
+    title: {{ .Release.Name }}
+  actions:
+    navigate:
+      - id: composition-click-action
+        name: composition-click-action
+        resourceRefId: composition-tablist
+        type: navigate
+  resourcesRefs:
+    - id: composition-panel-paragraph
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-panel-paragraph
+      namespace: {{ .Release.Namespace }}
+      resource: paragraphs
+      verb: GET
+    - id: composition-panel-button
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-panel-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: composition-tablist
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-tablist
+      namespace: {{ .Release.Namespace }}
+      resource: tablists
+      verb: GET

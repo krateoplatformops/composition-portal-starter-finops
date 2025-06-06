@@ -1,0 +1,14 @@
+kind: YamlViewer
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-values-panel-yamlviewer
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    json: ""
+  widgetDataTemplate:
+    - forPath: json
+      expression: ${ .values | tojson }
+  apiRef:
+    name: {{ .Release.Name }}-composition-values
+    namespace: {{ .Release.Namespace }}

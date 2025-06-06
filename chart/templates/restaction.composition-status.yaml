@@ -1,0 +1,21 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-composition-status
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: getStatus
+    path: "/compositions/{{ .Values.global.compositionId }}"
+    verb: GET
+    endpointRef:
+      name: resource-tree-handler-endpoint
+      namespace: {{ .Values.global.krateoNamespace }}
+    headers:
+    - 'Accept: application/json'
+    continueOnError: true
+    errorKey: getStatusError
+  filter: >
+    {
+      status: (.getStatus // [])
+    }
