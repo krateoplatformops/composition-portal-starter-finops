@@ -15,3 +15,7 @@ spec:
     - 'Accept: application/json'
     continueOnError: true
     errorKey: getNodesError
+  filter: >
+    {
+      nodes: (.getNodes // [])
+    }

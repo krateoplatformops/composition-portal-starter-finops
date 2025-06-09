@@ -8,7 +8,7 @@ spec:
     data: []
   widgetDataTemplate:
     - forPath: data
-      expression: ${ .resourceTree.nodes }
+      expression: ${ .nodes }
   apiRef:
     name: {{ .Release.Name }}-composition-application
     namespace: {{ .Release.Namespace }}
