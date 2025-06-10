@@ -4,10 +4,14 @@ metadata:
   name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
 spec:
   widgetData:
-    data: []
+    series: []
+    description: ""
+    title: ""
   widgetDataTemplate:
-    - forPath: data
-      expression: ${ .costs }
+    - forPath: series
+      expression: ${ .costs.series }
+    - forPath: title
+      expression: ${ .costs.title }
   apiRef:
     name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
     namespace: {{ .Release.Namespace }}
@@ -18,10 +22,16 @@ metadata:
   name: {{ .Release.Name }}-composition-finops-panel-row-1-linechart
 spec:
   widgetData:
-    data: []
+    lines: []
+    xAxisName: ""
+    yAxisName: ""
   widgetDataTemplate:
-    - forPath: data
-      expression: ${ .costsbreakdown }
+    - forPath: lines
+      expression: ${ .costsbreakdown.lines }
+    - forPath: xAxisName
+      expression: ${ .costsbreakdown.xAxisName }
+    - forPath: yAxisName
+      expression: ${ .costsbreakdown.yAxisName }
   apiRef:
     name: {{ .Release.Name }}-composition-finops-panel-row-1-linechart
     namespace: {{ .Release.Namespace }}

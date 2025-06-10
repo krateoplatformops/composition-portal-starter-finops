@@ -4,15 +4,22 @@ metadata:
   name: {{ .Release.Name }}-composition-finops-panel-row-3-linechart
 spec:
   widgetData:
-    data: []
+  widgetData:
+    lines: []
+    xAxisName: ""
+    yAxisName: ""
   widgetDataTemplate:
-    - forPath: data
-      expression: ${ .metrics }
+    - forPath: lines
+      expression: ${ .metrics.lines }
+    - forPath: xAxisName
+      expression: ${ .metrics.xAxisName }
+    - forPath: yAxisName
+      expression: ${ .metrics.yAxisName }
   apiRef:
     name: {{ .Release.Name }}-composition-finops-panel-row-3-linechart
     namespace: {{ .Release.Namespace }}
 ---
-kind: LineChart
+kind: Table
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
   name: {{ .Release.Name }}-composition-finops-panel-row-3-table
