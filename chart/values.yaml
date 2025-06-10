@@ -4,10 +4,8 @@
 
 overview:
   enabled: true
-  text: This is going to be the overview text
+  text: Example Pricing, Costs and Usage of a Virtual Machine on Azure
 compositionstatus:
-  enabled: true
-applicationstatus:
   enabled: true
 terminal:
   enabled: false
@@ -16,7 +14,7 @@ events:
 yamlviewer:
   enabled: true
 finops:
-  enabled: false
+  enabled: true
 global:
   compositionApiVersion: compositionApiVersion
   compositionGroup: compositionGroup

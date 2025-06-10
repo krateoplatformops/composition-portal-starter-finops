@@ -1,0 +1,49 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
+spec:
+  api:
+  - name: getComposition
+    path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
+    verb: GET
+    headers:
+    - 'Accept: application/json'
+  - name: costs
+    dependsOn: 
+      name: getComposition
+    endpointRef: 
+      name: finops-database-handler-endpoint
+      namespace: {{ .Values.global.krateoNamespace }}
+    path: "/compute/costs"
+    verb: POST
+    payload: |
+      ${ {table_name: "{{ .Values.global.tableName }}", resource_name: .getComposition.spec.name, resource_group_name: .getComposition.spec.resourceGroupName } }
+    headers:
+    - 'Accept: application/json'
+    - 'Content-Type: application/json'
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-composition-finops-panel-row-1-linechart
+spec:
+  api:
+  - name: getComposition
+    path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
+    verb: GET
+    headers:
+    - 'Accept: application/json'
+  - name: costsbreakdown
+    dependsOn: 
+      name: getComposition
+    endpointRef: 
+      name: finops-database-handler-endpoint
+      namespace: {{ .Values.global.krateoNamespace }}
+    path: "/compute/costsbreakdown"
+    verb: POST
+    payload: |
+      ${ {table_name: "{{ .Values.global.tableName }}", resource_name: .getComposition.spec.name, resource_group_name: .getComposition.spec.resourceGroupName } }
+    headers:
+    - 'Accept: application/json'
+    - 'Content-Type: application/json'
