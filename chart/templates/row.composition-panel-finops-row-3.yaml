@@ -1,0 +1,24 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-finops-panel-row-3
+spec:
+  widgetData:
+    items:
+      - resourceRefId: usage-linechart
+        size: 18
+      - resourceRefId: usage-table
+        size: 6
+  resourcesRefs:
+    - id:  usage-linechart
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-finops-panel-row-3-linechart
+      namespace: {{ .Release.Namespace }}
+      resource: linecharts
+      verb: GET
+    - id: usage-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: {{ .Release.Name }}-composition-finops-panel-row-3-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET

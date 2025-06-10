@@ -1,0 +1,41 @@
+kind: LineChart
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-finops-panel-row-3-linechart
+spec:
+  widgetData:
+    data: []
+  widgetDataTemplate:
+    - forPath: data
+      expression: ${ .metrics }
+  apiRef:
+    name: {{ .Release.Name }}-composition-finops-panel-row-3-linechart
+    namespace: {{ .Release.Namespace }}
+---
+kind: LineChart
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: {{ .Release.Name }}-composition-finops-panel-row-3-table
+spec:
+  widgetData:
+    data: []
+    pageSize: "10"
+    columns: 
+      - valueKey: "resourceid"
+        title: "Resource ID" 
+      - valueKey: "metricname"
+        title: "Metric Name"
+      - valueKey: "unit"
+        title: "Unit"
+      - valueKey: "optimizeFrom"
+        title: "Optimization Start (hh:mm)"
+      - valueKey: "optimizeTo"
+        title: "Optimization End (hh:mm)"
+      - valueKey: "resourceDelta"
+        title: "Optimize by (%)"
+  widgetDataTemplate:
+    - forPath: data
+      expression: ${ .getComposition }
+  apiRef:
+    name: {{ .Release.Name }}-composition-finops-panel-row-3-table
+    namespace: {{ .Release.Namespace }}
