@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
+    title: FinOps - Costs and Usage
     items:
       - resourceRefId: row-1
       - resourceRefId: row-2
@@ -31,7 +32,7 @@ spec:
       verb: GET
     - id: row-4
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-panel-row-4
+      name: {{ .Release.Name }}-composition-finops-panel-row-4-paragraph
       namespace: {{ .Release.Namespace }}
       resource: paragraphs
       verb: GET

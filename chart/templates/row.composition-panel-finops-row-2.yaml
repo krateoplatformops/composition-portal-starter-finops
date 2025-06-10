@@ -6,9 +6,9 @@ spec:
   widgetData:
     items:
       - resourceRefId: cost-piechart-paragraph
-        size: 6
+        size: 12
       - resourceRefId: cost-linechart-paragraph
-        size: 18
+        size: 12
   resourcesRefs:
     - id:  cost-piechart-paragraph
       apiVersion: widgets.templates.krateo.io/v1beta1

@@ -35,11 +35,11 @@ spec:
       - valueKey: "unit"
         title: "Unit"
       - valueKey: "optimizeFrom"
-        title: "Optimization Start (hh:mm)"
+        title: "Opt. Start (hh:mm)"
       - valueKey: "optimizeTo"
-        title: "Optimization End (hh:mm)"
+        title: "Opt. End (hh:mm)"
       - valueKey: "resourceDelta"
-        title: "Optimize by (%)"
+        title: "Opt. by (%)"
   widgetDataTemplate:
     - forPath: data
       expression: ${ .getComposition }

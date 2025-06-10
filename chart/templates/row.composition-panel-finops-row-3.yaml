@@ -6,9 +6,9 @@ spec:
   widgetData:
     items:
       - resourceRefId: usage-linechart
-        size: 18
+        size: 16
       - resourceRefId: usage-table
-        size: 6
+        size: 8
   resourcesRefs:
     - id:  usage-linechart
       apiVersion: widgets.templates.krateo.io/v1beta1
