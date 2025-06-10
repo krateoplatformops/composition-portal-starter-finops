@@ -4,7 +4,9 @@ metadata:
   name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
 spec:
   widgetData:
-    series: []
+    series:
+      data: []
+      total: 0
     description: ""
     title: ""
   widgetDataTemplate:

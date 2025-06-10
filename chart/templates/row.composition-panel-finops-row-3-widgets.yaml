@@ -26,7 +26,7 @@ metadata:
 spec:
   widgetData:
     data: []
-    pageSize: "10"
+    pageSize: 10
     columns: 
       - valueKey: "resourceid"
         title: "Resource ID" 
