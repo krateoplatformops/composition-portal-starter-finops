@@ -34,5 +34,5 @@ spec:
     verb: GET
     headers:
     - 'Accept: application/json'
-    filter: >
-      ${ [ .spec.optimization | fromjson | .[] | { resourceid: (.resourceid | split("/") | .[-1]), metricname: .metricname, unit: .unit, optimizeFrom: .optimization.from, resourceDelta: .optimization.resourceDelta, optimizeTo: .optimization.to  }] }
+    filter: |
+      [ .spec.optimization | fromjson | .[] | { resourceid: (.resourceid | split("/") | .[-1]), metricname: .metricname, unit: .unit, optimizeFrom: .optimization.from, resourceDelta: .optimization.resourceDelta, optimizeTo: .optimization.to  }]

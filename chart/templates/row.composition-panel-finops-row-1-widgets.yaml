@@ -10,10 +10,14 @@ spec:
     description: ""
     title: ""
   widgetDataTemplate:
-    - forPath: series
-      expression: ${ .costs.series }
-    - forPath: title
-      expression: ${ .costs.title }
+  - expression: ${ .costs.series | .[0] | .data }
+    forPath: series.data
+  - expression: ${ .costs.series | .[0] | .total | tonumber | floor }
+    forPath: series.total
+  - expression: ${ .costs.title }
+    forPath: title
+  - expression: ${ .costs.description }
+    forPath: description
   apiRef:
     name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
     namespace: {{ .Release.Namespace }}
