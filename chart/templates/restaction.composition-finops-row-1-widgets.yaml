@@ -18,7 +18,7 @@ spec:
     path: "/compute/costs"
     verb: POST
     payload: |
-      ${ {table_name: "{{ .Values.global.tableName }}", resource_name: .getComposition.spec.name, resource_group_name: .getComposition.spec.resourceGroupName } }
+      ${ {table_name: "{{ .Values.global.tableName }}", composition_id: .getComposition.metadata.uid } }
     headers:
     - 'Accept: application/json'
     - 'Content-Type: application/json'
@@ -43,7 +43,7 @@ spec:
     path: "/compute/costsbreakdown"
     verb: POST
     payload: |
-      ${ {table_name: "{{ .Values.global.tableName }}", resource_name: .getComposition.spec.name, resource_group_name: .getComposition.spec.resourceGroupName } }
+      ${ {table_name: "{{ .Values.global.tableName }}", composition_id: .getComposition.metadata.uid } }
     headers:
     - 'Accept: application/json'
     - 'Content-Type: application/json'
