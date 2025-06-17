@@ -18,7 +18,7 @@ spec:
     path: "/compute/metrics"
     verb: POST
     payload: |
-      ${ {table_name: "{{ .Values.global.tableName }}_res", resource_name: .getComposition.spec.name, resource_group_name: .getComposition.spec.resourceGroupName } }
+      ${ {table_name: "{{ .Values.global.tableName }}_res", composition_id: .getComposition.metadata.uid } }
     headers:
     - 'Accept: application/json'
     - 'Content-Type: application/json'
