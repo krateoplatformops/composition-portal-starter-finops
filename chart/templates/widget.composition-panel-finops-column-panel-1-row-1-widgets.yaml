@@ -1,7 +1,7 @@
 kind: PieChart
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
+  name: {{ .Release.Name }}-composition-finops-column-panel-1-row-1-piechart
 spec:
   widgetData:
     series:
@@ -19,13 +19,13 @@ spec:
   - expression: ${ .costs.description }
     forPath: description
   apiRef:
-    name: {{ .Release.Name }}-composition-finops-panel-row-1-piechart
+    name: {{ .Release.Name }}-composition-finops-column-panel-1-row-1-piechart
     namespace: {{ .Release.Namespace }}
 ---
 kind: LineChart
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: {{ .Release.Name }}-composition-finops-panel-row-1-linechart
+  name: {{ .Release.Name }}-composition-finops-column-panel-1-row-1-linechart
 spec:
   widgetData:
     lines: []
@@ -39,5 +39,5 @@ spec:
     - forPath: yAxisName
       expression: ${ .costsbreakdown.yAxisName }
   apiRef:
-    name: {{ .Release.Name }}-composition-finops-panel-row-1-linechart
+    name: {{ .Release.Name }}-composition-finops-column-panel-1-row-1-linechart
     namespace: {{ .Release.Namespace }}

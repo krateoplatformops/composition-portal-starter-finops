@@ -6,5 +6,6 @@ metadata:
 spec:
   filters:
     exclude:
-    - apiVersion: |
-        ^widgets\.templates\.krateo\.io
+    - apiVersion: ^widgets\.templates\.krateo\.io.+
+    - apiVersion: templates.krateo.io/v1
+      resource: restactions
