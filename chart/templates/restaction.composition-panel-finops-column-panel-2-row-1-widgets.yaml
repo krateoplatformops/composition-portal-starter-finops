@@ -4,20 +4,21 @@ metadata:
   name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1-linechart
 spec:
   api:
-  # - name: getComposition
-  #   path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
-  #   verb: GET
-  #   headers:
-  #   - 'Accept: application/json'
+  - name: getComposition
+    path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
+    verb: GET
+    headers:
+    - 'Accept: application/json'
   - name: metrics
-
+    dependsOn: 
+      name: getComposition
     endpointRef: 
       name: finops-database-handler-endpoint
       namespace: krateo-system
     path: "/compute/metrics"
     verb: POST
     payload: |
-      ${ {table_name: "{{ .Values.global.tableName }}_res", resource_name: "high", resource_group_name: "alpitour-demo" } }
+      ${ {table_name: "{{ .Values.global.tableName }}_res", resource_name: .getComposition.spec.name, resource_group_name: .getComposition.spec.resourceGroupName } }
     headers:
     - 'Accept: application/json'
     - 'Content-Type: application/json'
