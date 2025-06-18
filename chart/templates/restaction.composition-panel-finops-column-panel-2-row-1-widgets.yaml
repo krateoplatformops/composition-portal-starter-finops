@@ -1,24 +1,23 @@
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: {{ .Release.Name }}-composition-finops-panel-row-3-linechart
+  name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1-linechart
 spec:
   api:
-  - name: getComposition
-    path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
-    verb: GET
-    headers:
-    - 'Accept: application/json'
+  # - name: getComposition
+  #   path: "/apis/{{ .Values.global.compositionApiVersion }}/namespaces/{{ .Release.Namespace }}/{{ .Values.global.compositionResource }}/{{ .Release.Name }}"
+  #   verb: GET
+  #   headers:
+  #   - 'Accept: application/json'
   - name: metrics
-    dependsOn: 
-      name: getComposition
+
     endpointRef: 
       name: finops-database-handler-endpoint
       namespace: krateo-system
     path: "/compute/metrics"
     verb: POST
     payload: |
-      ${ {table_name: "{{ .Values.global.tableName }}_res", composition_id: .getComposition.metadata.uid } }
+      ${ {table_name: "{{ .Values.global.tableName }}_res", resource_name: "high", resource_group_name: "alpitour-demo" } }
     headers:
     - 'Accept: application/json'
     - 'Content-Type: application/json'
@@ -26,7 +25,7 @@ spec:
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: {{ .Release.Name }}-composition-finops-panel-row-3-table
+  name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1-table
 spec:
   api:
   - name: getComposition

@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-composition-panel
   namespace: {{ .Release.Namespace }}
   labels:
-    krateo.io/composition-id: test
+    krateo.io/portal-page: compositions
 spec:
   widgetData:
     clickActionId: composition-click-action
@@ -13,8 +13,8 @@ spec:
         - resourceRefId: composition-panel-button
       tag: {{ .Release.Namespace }},{{ .Values.global.compositionGroup }},{{ .Values.global.compositionInstalledVersion }},{{ .Values.global.compositionKind }},{{ .Values.global.compositionResource }}
     icon:
-      name: fa-solid fa-cubes
-      color: blue
+      name: fa-hand-holding-dollar
+      color: green
     items:
       - resourceRefId: composition-panel-paragraph
     title: {{ .Release.Name }}

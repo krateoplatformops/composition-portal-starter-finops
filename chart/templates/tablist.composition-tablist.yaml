@@ -15,7 +15,7 @@ spec:
       - label: Values
         resourceRefId: composition-values-panel
       - label: FinOps
-        resourceRefId: composition-finops-panel
+        resourceRefId: composition-finops-column
   resourcesRefs:
     - id: composition-overview-panel
       apiVersion: widgets.templates.krateo.io/v1beta1
@@ -41,9 +41,9 @@ spec:
       namespace: {{ .Release.Namespace }}
       resource: panels
       verb: GET
-    - id: composition-finops-panel
+    - id: composition-finops-column
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-panel
+      name: {{ .Release.Name }}-composition-finops-column
       namespace: {{ .Release.Namespace }}
-      resource: panels
+      resource: columns
       verb: GET
