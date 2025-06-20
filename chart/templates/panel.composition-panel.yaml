@@ -6,6 +6,9 @@ metadata:
   labels:
     krateo.io/portal-page: compositions
 spec:
+  apiRef:
+    name: {{ .Release.Name }}-composition-finops
+    namespace: azure-pricing-system
   widgetData:
     clickActionId: composition-click-action
     footer:
@@ -18,6 +21,13 @@ spec:
     items:
       - resourceRefId: composition-panel-paragraph
     title: {{ .Release.Name }}
+  widgetDataTemplate:
+    - forPath: icon.color
+      expression: ${ .getComposition.status.conditions[] | select(.type == "Ready") | if .status == "False" then "orange" elif .status == "True" then "green" else "grey" end }
+    - forPath: headerLeft
+      expression: ${ .getComposition.status.conditions[] | select(.type == "Ready") | if .status == "False" then "Ready:False" elif .status == "True" then "Ready:True" end }
+    - forPath: headerRight
+      expression: ${ .getComposition.metadata.creationTimestamp }
   actions:
     navigate:
       - id: composition-click-action
