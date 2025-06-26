@@ -17,5 +17,5 @@ spec:
     errorKey: getEventsError
   filter: >
     {
-      list: (.getEvents // [])
+      list: (.getEvents |= map(.eventTime = (.eventTime // "")) // [])
     }
