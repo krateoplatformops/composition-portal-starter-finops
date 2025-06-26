@@ -9,11 +9,11 @@ spec:
     type: default
     shape: circle
     clickActionId: delete
-  actions:
-    rest:
-      - id: delete
-        resourceRefId: delete
-        type: rest
+    actions:
+      rest:
+        - id: delete
+          resourceRefId: delete
+          type: rest
   resourcesRefs:
     - id: delete
       apiVersion: {{ .Values.global.compositionGroup }}/{{ .Values.global.compositionInstalledVersion }}
