@@ -4,17 +4,7 @@
 
 overview:
   enabled: true
-  text: Example Pricing, Costs and Usage of a Virtual Machine on Azure
-compositionstatus:
-  enabled: true
-terminal:
-  enabled: false
-events:
-  enabled: true
-yamlviewer:
-  enabled: true
-finops:
-  enabled: true
+  icon: fa-hand-holding-dollar
 global:
   compositionApiVersion: compositionApiVersion
   compositionGroup: compositionGroup
