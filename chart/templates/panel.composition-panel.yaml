@@ -20,7 +20,7 @@ spec:
       - {{ .Values.global.compositionKind }}
       - {{ .Values.global.compositionResource }}
     icon:
-      name: fa-hand-holding-dollar
+      name: {{ .Values.overview.icon }}
       color: green
     items:
       - resourceRefId: composition-panel-paragraph
