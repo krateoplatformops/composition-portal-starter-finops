@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
-    text: {{ .Values.overview.text }}
+    text: Example Pricing, Costs and Usage of a Virtual Machine on Azure
