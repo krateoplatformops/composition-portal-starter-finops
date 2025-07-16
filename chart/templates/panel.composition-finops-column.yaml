@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
+    actions: {}
     items:
       - resourceRefId: panel-1
       - resourceRefId: panel-2
