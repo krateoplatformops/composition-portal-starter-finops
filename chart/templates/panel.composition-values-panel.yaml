@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
+    actions: {}
     items:
       - resourceRefId: composition-values-panel-yamlviewer
   resourcesRefs:

@@ -5,6 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
+    actions: {}
     title: Usage and Optimization
     items:
       - resourceRefId: row-1
