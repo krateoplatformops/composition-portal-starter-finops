@@ -39,6 +39,7 @@ spec:
     - forPath: headerRight
       expression: ${ .getComposition.metadata.creationTimestamp }
   resourcesRefs:
+    items:
     - id: composition-panel-paragraph
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-panel-paragraph

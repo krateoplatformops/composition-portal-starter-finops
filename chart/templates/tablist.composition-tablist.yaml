@@ -17,6 +17,7 @@ spec:
       - label: FinOps
         resourceRefId: composition-finops-column
   resourcesRefs:
+    items:
     - id: composition-overview-panel
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-overview-panel

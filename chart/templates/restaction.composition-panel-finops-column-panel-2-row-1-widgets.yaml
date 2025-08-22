@@ -35,4 +35,4 @@ spec:
     headers:
     - 'Accept: application/json'
     filter: |
-      [ .spec.optimization | fromjson | .[] | { resourceid: (.resourceid | split("/") | .[-1]), metricname: .metricname, unit: .unit, optimizeFrom: .optimization.from, resourceDelta: .optimization.resourceDelta, optimizeTo: .optimization.to  }]
+      [ .getComposition.spec.optimization | fromjson | .[] | { resourceid: (.resourceid | split("/") | .[-1]), metricname: .metricname, unit: .unit, optimizeFrom: .optimization.from, resourceDelta: .optimization.resourceDelta, optimizeTo: .optimization.to  }]

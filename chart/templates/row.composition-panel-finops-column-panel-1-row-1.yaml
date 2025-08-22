@@ -11,6 +11,7 @@ spec:
       - resourceRefId: cost-linechart
         size: 18
   resourcesRefs:
+    items:
     - id:  cost-piechart
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-finops-column-panel-1-row-1-piechart

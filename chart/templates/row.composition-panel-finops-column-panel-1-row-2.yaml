@@ -10,6 +10,7 @@ spec:
       - resourceRefId: cost-linechart-paragraph
         size: 12
   resourcesRefs:
+    items:
     - id:  cost-piechart-paragraph
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-finops-column-panel-1-row-2-piechart-paragraph
