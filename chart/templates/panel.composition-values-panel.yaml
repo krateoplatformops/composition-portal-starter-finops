@@ -9,6 +9,7 @@ spec:
     items:
       - resourceRefId: composition-values-panel-yamlviewer
   resourcesRefs:
+    items:
     - id: composition-values-panel-yamlviewer
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-values-panel-yamlviewer

@@ -10,6 +10,7 @@ spec:
       - resourceRefId: panel-1
       - resourceRefId: panel-2
   resourcesRefs:
+    items:
     - id: panel-1
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-finops-column-panel-1

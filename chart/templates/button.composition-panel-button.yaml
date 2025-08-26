@@ -15,6 +15,7 @@ spec:
           resourceRefId: delete
           type: rest
   resourcesRefs:
+    items:
     - id: delete
       apiVersion: {{ .Values.global.compositionGroup }}/{{ .Values.global.compositionInstalledVersion }}
       resource: {{ .Values.global.compositionResource }}

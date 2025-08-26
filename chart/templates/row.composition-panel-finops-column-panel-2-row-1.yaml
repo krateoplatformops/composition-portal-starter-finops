@@ -11,6 +11,7 @@ spec:
       - resourceRefId: usage-table
         size: 8
   resourcesRefs:
+    items:
     - id:  usage-linechart
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1-linechart

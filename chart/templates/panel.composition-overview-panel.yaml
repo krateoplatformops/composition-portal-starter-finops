@@ -9,6 +9,7 @@ spec:
     items:
       - resourceRefId: composition-overview-panel-paragraph
   resourcesRefs:
+    items:
     - id: composition-overview-panel-paragraph
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: {{ .Release.Name }}-composition-overview-panel-paragraph
