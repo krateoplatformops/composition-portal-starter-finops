@@ -1,50 +1,42 @@
 kind: TabList
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: {{ .Release.Name }}-composition-tablist
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.global.compositionName }}-composition-tablist
+  namespace: {{ .Values.global.compositionNamespace }}
 spec:
   widgetData:
     items:
-      - label: Overview
-        resourceRefId: composition-overview-panel
-      - label: Composition Status
-        resourceRefId: composition-status-flowchart
       - label: Events
         resourceRefId: composition-events-panel
+      - label: Composition Status
+        resourceRefId: composition-status-panel
       - label: Values
         resourceRefId: composition-values-panel
       - label: FinOps
         resourceRefId: composition-finops-column
   resourcesRefs:
     items:
-    - id: composition-overview-panel
-      apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-overview-panel
-      namespace: {{ .Release.Namespace }}
-      resource: panels
-      verb: GET
-    - id: composition-status-flowchart
-      apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-status-flowchart
-      namespace: {{ .Release.Namespace }}
-      resource: flowcharts
-      verb: GET
-    - id: composition-events-panel
-      apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-events-panel
-      namespace: {{ .Release.Namespace }}
-      resource: panels
-      verb: GET
-    - id: composition-values-panel
-      apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-values-panel
-      namespace: {{ .Release.Namespace }}
-      resource: panels
-      verb: GET
-    - id: composition-finops-column
-      apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-column
-      namespace: {{ .Release.Namespace }}
-      resource: columns
-      verb: GET
+      - id: composition-events-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Values.global.compositionName }}-composition-events-panel
+        namespace: {{ .Values.global.compositionNamespace }}
+        resource: panels
+        verb: GET
+      - id: composition-status-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Values.global.compositionName }}-composition-status-panel
+        namespace: {{ .Values.global.compositionNamespace }}
+        resource: panels
+        verb: GET
+      - id: composition-values-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Values.global.compositionName }}-composition-values-panel
+        namespace: {{ .Values.global.compositionNamespace }}
+        resource: panels
+        verb: GET
+      - id: composition-finops-column
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Values.global.compositionName }}-composition-finops-column
+        namespace: {{ .Values.global.compositionNamespace }}
+        resource: columns
+        verb: GET

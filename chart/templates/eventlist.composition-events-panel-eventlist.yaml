@@ -1,8 +1,8 @@
 kind: EventList
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: {{ .Release.Name }}-composition-events-panel-eventlist
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.global.compositionName }}-composition-events-panel-eventlist
+  namespace: {{ .Values.global.compositionNamespace }}
 spec:
   widgetData:
     events: []
@@ -10,7 +10,7 @@ spec:
     sseTopic: "{{ .Values.global.compositionId }}"
   widgetDataTemplate:
     - forPath: events
-      expression: ${ .list.getEvents }
+      expression: ${ .list }
   apiRef:
-    name: {{ .Release.Name }}-composition-events
-    namespace: {{ .Release.Namespace }}
+    name: {{ .Values.global.compositionName }}-composition-events
+    namespace: {{ .Values.global.compositionNamespace }}
