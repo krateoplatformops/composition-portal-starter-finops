@@ -1,8 +1,8 @@
 kind: Row
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.global.compositionName }}-composition-finops-column-panel-2-row-1
+  namespace: {{ .Values.global.compositionNamespace }}
 spec:
   widgetData:
     items:
@@ -14,13 +14,13 @@ spec:
     items:
     - id:  usage-linechart
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1-linechart
-      namespace: {{ .Release.Namespace }}
+      name: {{ .Values.global.compositionName }}-composition-finops-column-panel-2-row-1-linechart
+      namespace: {{ .Values.global.compositionNamespace }}
       resource: linecharts
       verb: GET
     - id: usage-table
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-column-panel-2-row-1-table
-      namespace: {{ .Release.Namespace }}
+      name: {{ .Values.global.compositionName }}-composition-finops-column-panel-2-row-1-table
+      namespace: {{ .Values.global.compositionNamespace }}
       resource: tables
       verb: GET

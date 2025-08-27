@@ -1,8 +1,8 @@
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: {{ .Release.Name }}-composition-events
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.global.compositionName }}-composition-events
+  namespace: {{ .Values.global.compositionNamespace }}
 spec:
   api:
   - name: getEvents
@@ -17,5 +17,21 @@ spec:
     errorKey: getEventsError
   filter: >
     {
-      list: (.getEvents |= map(.eventTime = (.eventTime // "")) // [])
+      list: (
+        (.getEvents // [])
+        | map(
+            .eventTime               = (.eventTime // "") |
+            .firstTimestamp          = (.firstTimestamp // "") |
+            .lastTimestamp           = (.lastTimestamp // "") |
+            .involvedObject.namespace = (.involvedObject.namespace // "") |
+            del(
+              .metadata.resourceVersion,
+              .metadata.annotations,
+              .metadata.labels,
+              .metadata.managedFields,
+              .involvedObject.resourceVersion,
+              .series
+            )
+          )
+      )
     }

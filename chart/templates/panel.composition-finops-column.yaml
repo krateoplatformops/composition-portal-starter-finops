@@ -1,8 +1,8 @@
 kind: Column
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: {{ .Release.Name }}-composition-finops-column
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.global.compositionName }}-composition-finops-column
+  namespace: {{ .Values.global.compositionNamespace }}
 spec: 
   widgetData:
     actions: {}
@@ -13,13 +13,13 @@ spec:
     items:
     - id: panel-1
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-column-panel-1
-      namespace: {{ .Release.Namespace }}
+      name: {{ .Values.global.compositionName }}-composition-finops-column-panel-1
+      namespace: {{ .Values.global.compositionNamespace }}
       resource: panels
       verb: GET
     - id: panel-2
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: {{ .Release.Name }}-composition-finops-column-panel-2
-      namespace: {{ .Release.Namespace }}
+      name: {{ .Values.global.compositionName }}-composition-finops-column-panel-2
+      namespace: {{ .Values.global.compositionNamespace }}
       resource: panels
       verb: GET
