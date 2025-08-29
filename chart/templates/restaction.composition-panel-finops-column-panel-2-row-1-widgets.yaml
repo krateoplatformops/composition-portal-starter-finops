@@ -34,5 +34,72 @@ spec:
     verb: GET
     headers:
     - 'Accept: application/json'
-    filter: |
-      [ .getComposition.spec.optimization | fromjson | .[] | { resourceid: (.resourceid | split("/") | .[-1]), metricname: .metricname, unit: .unit, optimizeFrom: .optimization.from, resourceDelta: .optimization.resourceDelta, optimizeTo: .optimization.to  }]
+  filter: > 
+    {
+      getComposition: (
+        if (.getComposition | type) == "array" then
+          (
+            .getComposition.spec.optimization
+            | fromjson
+            | map(
+                [
+                  # resource as a widget (resourceRefId = last segment)
+                  {
+                    valueKey: "resource",
+                    kind: "widget",
+                    resourceRefId: (.resourceid | split("/") | .[-1])
+                  },
+                  # metric name
+                  {
+                    valueKey: "metric",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: .metricname
+                  },
+                  # unit
+                  {
+                    valueKey: "unit",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: .unit
+                  },
+                  # optimizeFrom (if numeric -> decimalValue, else string)
+                  (
+                    if (.optimization.from | type) == "number" then
+                      {
+                        valueKey: "optimizeFrom",
+                        kind: "jsonSchemaType",
+                        type: "decimal",
+                        decimalValue: (.optimization.from | tostring)
+                      }
+                    else
+                      {
+                        valueKey: "optimizeFrom",
+                        kind: "jsonSchemaType",
+                        type: "string",
+                        stringValue: (.optimization.from | tostring)
+                      }
+                    end
+                  ),
+                  # resourceDelta (emit as decimalValue string)
+                  {
+                    valueKey: "resourceDelta",
+                    kind: "jsonSchemaType",
+                    type: "decimal",
+                    decimalValue: (.optimization.resourceDelta | tostring)
+                  },
+                  # optimizeTo (emit as decimalValue string)
+                  {
+                    valueKey: "optimizeTo",
+                    kind: "jsonSchemaType",
+                    type: "decimal",
+                    decimalValue: (.optimization.to | tostring)
+                  }
+                ]
+              )
+          )
+        else
+          []
+        end
+      )
+    }
