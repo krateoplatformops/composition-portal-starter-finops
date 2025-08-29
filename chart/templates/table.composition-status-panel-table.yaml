@@ -17,12 +17,12 @@ spec:
     - title: Date
       valueKey: date
     - title: isReady 
-      valueKey: statusIcon.isReady
+      valueKey: isReady
     data: []
     pageSize: 10
   widgetDataTemplate:
     - forPath: data
-      expression: ${ .nodes }
+      expression: ${ .tableRows }
   apiRef:
     name: {{ .Values.global.compositionName }}-composition-status
     namespace: {{ .Values.global.compositionNamespace }}

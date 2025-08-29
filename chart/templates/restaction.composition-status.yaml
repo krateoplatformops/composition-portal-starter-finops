@@ -26,11 +26,11 @@ spec:
       .allCompositionResources
       # Apply exclusion filters
       | map(select(
-        (
-          (.apiVersion | startswith("widgets.templates.krateo.io/")) or
-          (.apiVersion == "templates.krateo.io/v1" and .kind == "RESTAction") or
-          (.apiVersion == "v1" and .kind == "ConfigMap")
-        ) | not
+          (
+            (.apiVersion | startswith("widgets.templates.krateo.io/")) or
+            (.apiVersion == "templates.krateo.io/v1" and .kind == "RESTAction") or
+            (.apiVersion == "v1" and .kind == "ConfigMap")
+          ) | not
         ))
       # Map resources to desired structure
       | map(
@@ -172,7 +172,113 @@ spec:
             ] + $nodes
           ),
         compositionCompleted: (
-          ([ "true" ] + ($nodes | map(.statusIcon.isReady))) 
+          ([ "true" ] + ($nodes | map(.statusIcon.isReady)))
           | all(. == "true")
-        )
-    }
+        ),
+
+        # NEW: rows in the requested schema (array of rows → array of cells)
+        tableRows:
+          (
+            (
+              [
+                {
+                  date: .getCompositionAndManagedResources.status.getComposition.metadata.creationTimestamp,
+                  statusIcon: (
+                    if (.getCompositionAndManagedResources.status.getComposition.status.conditions? // [] | map(select(.type == "Ready")) | length) > 0 then
+                      (
+                        .getCompositionAndManagedResources.status.getComposition.status.conditions[]
+                        | select(.type == "Ready")
+                        | if .status == "True" then
+                            { name: "fa-check",                 color: "#52c41a", message: (.message // ""), isReady: "true" }
+                          elif .status == "False" then
+                            { name: "fa-triangle-exclamation", color: "#fa8c16", message: (.message // ""), isReady: "false" }
+                          else
+                            { name: "fa-circle",               color: "#6c757d", message: (.message // ""), isReady: "false" }
+                          end
+                      )
+                    elif (.getCompositionAndManagedResources.status.getComposition.status.conditions? | length > 0) then
+                      (
+                        .getCompositionAndManagedResources.status.getComposition.status.conditions[0]
+                        | if .status == "True" then
+                            { name: "fa-check",                 color: "#52c41a", message: (.message // ""), isReady: "true" }
+                          elif .status == "False" then
+                            { name: "fa-triangle-exclamation", color: "#fa8c16", message: (.message // ""), isReady: "false" }
+                          else
+                            { name: "fa-circle",               color: "#6c757d", message: (.message // ""), isReady: "false" }
+                          end
+                      )
+                    else
+                      { name: "fa-circle", color: "#6c757d", message: "Status not available", isReady: "false" }
+                    end
+                  ),
+                  icon: (
+                    if (([ "true" ] + ($nodes | map(.statusIcon.isReady))) | all(. == "true")) then
+                      { name: "fa-check", color: "#52c41a" }
+                    else
+                      { name: "fa-times", color: "#ff4d4f" }
+                    end
+                  ),
+                  kind: "{{ .Values.global.compositionKind }}",
+                  name: "{{ .Values.global.compositionName }}",
+                  namespace: "{{ .Values.global.compositionNamespace }}",
+                  parentRefs: [ {} ],
+                  resourceVersion: "",
+                  uid: "{{ .Values.global.compositionId }}",
+                  version: "{{ .Values.global.compositionGroup }}/{{ .Values.global.compositionInstalledVersion }}"
+                }
+              ] + $nodes
+            )
+            | map(
+                [
+                  { valueKey: "icon",
+                    kind: "icon",
+                    stringValue: (.icon.name // "") 
+                  },
+                  { valueKey: "statusIcon",
+                    kind: "icon",
+                    stringValue: (.statusIcon.name // "") 
+                  },
+                  { valueKey: "statusMessage",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.statusIcon.message // "") 
+                  },
+                  { valueKey: "isReady",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.statusIcon.isReady // "") 
+                  },
+                  { valueKey: "name",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.name // "") 
+                  },
+                  { valueKey: "namespace",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.namespace // "") 
+                  },
+                  { valueKey: "kind",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.kind // "") 
+                  },
+                  { valueKey: "version",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.version // "") 
+                  },
+                  { valueKey: "date",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.date // "") 
+                  },
+                  { valueKey: "uid",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.uid // "") 
+                  }
+                ]
+              )
+          )
+      }

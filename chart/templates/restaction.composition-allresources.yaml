@@ -18,41 +18,32 @@ spec:
     exportJwt: true
     filter: ".allResources.status"
   - name: getComposition
+    dependsOn: 
+      name: allResources
     path: "/apis/{{ .Values.global.compositionGroup }}/{{ .Values.global.compositionInstalledVersion }}/namespaces/{{ .Values.global.compositionNamespace }}/{{ .Values.global.compositionResource }}/{{ .Values.global.compositionName }}"
     verb: GET
-    filter: ".getComposition"
   filter: >
     {
-        (
-          if (.getComposition | type) == "array" then
-            [.getComposition[]?.items[]?]
-          elif (.getComposition | type) == "object" then
-            [.getComposition.items[]?]
-          else
-            []
-          end
-        | 
-        getComposition: .getComposition,
-        getManagedResources: (
-            .getComposition.status.managed as $managed
-            | .allResources as $resources
-            | $managed
-            | map(
-                . as $m
-                | ($resources[] | select(.apiVersion == $m.apiVersion and .resource == $m.resource)) as $r
-                | {
-                    apiVersion: $m.apiVersion,
-                    resource: $m.resource,
-                    name: $m.name,
-                    url: (
-                        $r.api
-                        + "/"
-                        + $m.apiVersion
-                        + (if $r.namespaced then "/namespaces/\($m.namespace)" else "" end)
-                        + "/\($m.resource)/\($m.name)"
-                    )
-                }
-            )
-        )
+      getComposition: .getComposition,
+      getManagedResources: (
+        .getComposition.status.managed as $managed
+        | .allResources as $resources
+        | $managed
+        | map(
+            . as $m
+            | ($resources[] | select(.apiVersion == $m.apiVersion and .resource == $m.resource)) as $r
+            | {
+                apiVersion: $m.apiVersion,
+                resource: $m.resource,
+                name: $m.name,
+                url: (
+                    $r.api
+                    + "/"
+                    + $m.apiVersion
+                    + (if $r.namespaced then "/namespaces/\($m.namespace)" else "" end)
+                    + "/\($m.resource)/\($m.name)"
+                )
+            }
+          )
       )
     }
