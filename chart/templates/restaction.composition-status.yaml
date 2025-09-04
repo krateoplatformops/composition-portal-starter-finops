@@ -5,22 +5,15 @@ metadata:
   namespace: {{ .Values.global.compositionNamespace }}
 spec:
   api:
-  - name: getCompositionAndManagedResources
-    path: "/call?apiVersion=templates.krateo.io%2Fv1&resource=restactions&name={{ .Values.global.compositionName }}-composition-allresources&namespace={{ .Values.global.compositionNamespace }}"
+  - name: getComposition
+    path: "/apis/{{ .Values.global.compositionGroup }}/{{ .Values.global.compositionInstalledVersion }}/namespaces/{{ .Values.global.compositionNamespace }}/{{ .Values.global.compositionResource }}/{{ .Values.global.compositionName }}"
     verb: GET
-    endpointRef:
-      name: snowplow-endpoint
-      namespace: {{ .Values.global.krateoNamespace }}
-    headers:
-    - 'Accept: application/json'
-    continueOnError: true
-    errorKey: getCompositionAndManagedResourcesError
-    exportJwt: true
+    filter: ".getComposition"
   - name: allCompositionResources
     dependsOn:
-      iterator: .getCompositionAndManagedResources.status.getManagedResources
-      name: getCompositionAndManagedResources
-    path: ${ (.url) }
+      iterator: .getComposition.status.managed
+      name: getComposition
+    path: ${ (.path) }
   filter: >
     (
       .allCompositionResources
@@ -121,12 +114,12 @@ spec:
           (
             [
               {
-                date: .getCompositionAndManagedResources.status.getComposition.metadata.creationTimestamp,
+                date: .getComposition.metadata.creationTimestamp,
                 statusIcon: (
                   # If a Ready condition exists → map it
-                  if (.getCompositionAndManagedResources.status.getComposition.status.conditions? // [] | map(select(.type == "Ready")) | length) > 0 then
+                  if (.getComposition.status.conditions? // [] | map(select(.type == "Ready")) | length) > 0 then
                     (
-                      .getCompositionAndManagedResources.status.getComposition.status.conditions[]
+                      .getComposition.status.conditions[]
                       | select(.type == "Ready")
                       | if .status == "True" then
                           { name: "fa-check",                 color: "#52c41a", message: (.message // ""), isReady: "true" }
@@ -137,9 +130,9 @@ spec:
                         end
                     )
                   # Else if conditions exist → take the first element
-                  elif (.getCompositionAndManagedResources.status.getComposition.status.conditions? | length > 0) then
+                  elif (.getComposition.status.conditions? | length > 0) then
                     (
-                      .getCompositionAndManagedResources.status.getComposition.status.conditions[0]
+                      .getComposition.status.conditions[0]
                       | if .status == "True" then
                           { name: "fa-check",                 color: "#52c41a", message: (.message // ""), isReady: "true" }
                         elif .status == "False" then
@@ -182,11 +175,11 @@ spec:
             (
               [
                 {
-                  date: .getCompositionAndManagedResources.status.getComposition.metadata.creationTimestamp,
+                  date: .getComposition.metadata.creationTimestamp,
                   statusIcon: (
-                    if (.getCompositionAndManagedResources.status.getComposition.status.conditions? // [] | map(select(.type == "Ready")) | length) > 0 then
+                    if (.getComposition.status.conditions? // [] | map(select(.type == "Ready")) | length) > 0 then
                       (
-                        .getCompositionAndManagedResources.status.getComposition.status.conditions[]
+                        .getComposition.status.conditions[]
                         | select(.type == "Ready")
                         | if .status == "True" then
                             { name: "fa-check",                 color: "#52c41a", message: (.message // ""), isReady: "true" }
@@ -196,9 +189,9 @@ spec:
                             { name: "fa-circle",               color: "#6c757d", message: (.message // ""), isReady: "false" }
                           end
                       )
-                    elif (.getCompositionAndManagedResources.status.getComposition.status.conditions? | length > 0) then
+                    elif (.getComposition.status.conditions? | length > 0) then
                       (
-                        .getCompositionAndManagedResources.status.getComposition.status.conditions[0]
+                        .getComposition.status.conditions[0]
                         | if .status == "True" then
                             { name: "fa-check",                 color: "#52c41a", message: (.message // ""), isReady: "true" }
                           elif .status == "False" then

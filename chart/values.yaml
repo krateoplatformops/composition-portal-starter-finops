@@ -64,13 +64,13 @@ global:
   # type: string
   # examples: [githubscaffoldings]
   # @schema 
-  compositionResource: githubscaffoldings
+  compositionResource: finopsscaffoldings
   # @schema
   # description: Composition Custom Resource kind
   # type: string
   # examples: [GithubScaffolding]
   # @schema    
-  compositionKind: GithubScaffolding
+  compositionKind: FinOpsScaffolding
   # @schema
   # description: namespace where Krateo is installed
   # type: string
@@ -82,4 +82,4 @@ global:
   # type: boolean
   # examples: [false]
   # @schema 
-  gracefullyPaused: "false"
+  gracefullyPaused: false
