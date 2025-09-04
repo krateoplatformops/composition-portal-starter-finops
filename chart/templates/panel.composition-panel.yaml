@@ -32,7 +32,6 @@ spec:
         - id: composition-click-action
           resourceRefId: composition-tablist
           type: navigate
-          path: /compositions/{{ .Values.global.compositionNamespace }}/{{ .Values.global.compositionName }}
   widgetDataTemplate:
     - forPath: icon.color
       expression: >

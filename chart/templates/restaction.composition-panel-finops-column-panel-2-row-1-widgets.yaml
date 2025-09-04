@@ -37,21 +37,21 @@ spec:
   filter: > 
     {
       getComposition: (
-        if (.getComposition | type) == "array" then
+        if (.getComposition | type) == "object" then
           (
             .getComposition.spec.optimization
             | fromjson
             | map(
                 [
-                  # resource as a widget (resourceRefId = last segment)
                   {
-                    valueKey: "resource",
-                    kind: "widget",
-                    resourceRefId: (.resourceid | split("/") | .[-1])
+                    valueKey: "resourceid",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (.resourceid | split("/") | .[-1])
                   },
                   # metric name
                   {
-                    valueKey: "metric",
+                    valueKey: "metricname",
                     kind: "jsonSchemaType",
                     type: "string",
                     stringValue: .metricname
