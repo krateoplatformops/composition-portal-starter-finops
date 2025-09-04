@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "additionalProperties": false,
+  "additionalProperties": true,
   "properties": {
     "form": {
       "additionalProperties": false,
@@ -20,7 +20,7 @@
       "type": "object"
     },
     "global": {
-      "additionalProperties": false,
+      "additionalProperties": true,
       "description": "global properties section - if the Helm chart is installed via Composition Dynamic Controller, these are injected by default",
       "properties": {
         "compositionApiVersion": {
